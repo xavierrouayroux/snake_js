@@ -2,7 +2,9 @@
 const canvas = document.getElementById("game_frame");
 const ctx = canvas.getContext("2d");
 
-const gridSize = 20;
+let direction = "right"; // up | down | left | right
+const moveIntervall = 60;
+let count = 0;
 
 // init board game
 const size = 40;
@@ -14,9 +16,7 @@ array[middle][middle] = 1;
 array[middle][middle+1] = 2;
 array[middle][middle-1] = 3;
 
-let direction = "right"; // up | down | left | right
-const moveIntervall = 60;
-let count = 0;
+
 
 
 const drawMatrix = (canvas, matrix) => {
