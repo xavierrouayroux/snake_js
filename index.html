@@ -9,8 +9,45 @@
   </head>
   <body>
 	<div class="container">
-		<h1>Hello there!</h1>
+		<h1>snake game</h1>
+    <img src="img/téléchargement.jpg" alt="snake">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <button type="button" class="btn btn-outline-primary">player1</button>
+      <button type="button" class="btn btn-outline-primary">player2</button>
+      <button type="button" class="btn btn-outline-primary">player3</button>
+    </div>
 		<canvas id="game_frame" class="border" width="800" height="400"></canvas>
-	</div>
-  </body>
-</html>
+    <button type="button" class="btn btn-start">Start</button>
+    <input class="btn btn-primary" type="reset" value="Reset">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">player</th>
+          <th scope="col">name</th>
+          <th scope="col">score</th>
+          <th scope="col">last score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2"></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="w-100 p-3" style="background-color: rgb(108, 228, 11);"></div>
+    
