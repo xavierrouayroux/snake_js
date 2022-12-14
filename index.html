@@ -9,14 +9,20 @@
   </head>
   <body>
 	<div class="container">
-		<h1>snake game</h1>
+		<h1></h1>
     <img src="img/téléchargement.jpg" alt="snake"> 
     <div class="btn-group" role="group" aria-label="Basic outlined example">
       <button type="button" class="btn btn-outline-primary">player1</button>
       <button type="button" class="btn btn-outline-primary">player2</button>
       <button type="button" class="btn btn-outline-primary">player3</button>
       <button id="start" type="button" class="btn btn-start">Start</button> <input class="btn btn-primary" type="reset" value="Reset">
-  </div>
+  </div> 
+  <select class="form-select" aria-label="Default select example">
+    <option selected>choose speed difficulty</option>
+    <option value="1">10</option>
+    <option value="2">15</option>
+    <option value="3">20</option>
+  </select>
 </html>
     <table class="table">
       <thead>
@@ -50,6 +56,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <label for="inputPassword5" class="form-label">pseudo</label>
+<input type="text" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+<div id="passwordHelpBlock" class="form-text">
+</div>
   	<title>Snake Game</title>
   </head>
 
@@ -60,13 +70,13 @@
     <style>
       #snakeboard {
         position: absolute;
-        top: 63%;
-        left: 24%;
+        top: 70%;
+        left: 27%;
         transform: translate(-50%, -50%);
       }
       #score {
         text-align: center;
-        font-size: 100px;
+        font-size: 70px;
       }
     </style>
   </body>
@@ -276,7 +286,7 @@
       const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
       if (has_eaten_food) {
         // Increase score
-        score += 100;
+        score += 25;
         // Display score on screen
         document.getElementById('score').innerHTML = score;
         // Generate new food location
