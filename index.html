@@ -144,10 +144,16 @@
     document.addEventListener("keydown", change_direction);
 
     let mainLoopTimeout = 0;
+
+    create_table_score()
     
     function play()
     {
-        if (has_game_ended()) return;
+        if (has_game_ended()){
+          console.log('GAME OVER');
+          clearInterval(mainLoopTimeout);
+          return;
+        }
         changing_direction = false;
 
         clear_board();
@@ -203,17 +209,22 @@
     }
 
     function has_game_ended() {
+      let result = false;
       for (let i = 4; i < snake.length; i++) {
-        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) result = true;
       }
-      const hitLeftWall = snake[0].x < 0;
-      const hitRightWall = snake[0].x > snakeboard.width - 10;
-      const hitToptWall = snake[0].y < 0;
-      const hitBottomWall = snake[0].y > snakeboard.height - 10;
-      let result = hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
+      if (!result) {
+        const hitLeftWall = snake[0].x < 0;
+        const hitRightWall = snake[0].x > snakeboard.width - 10;
+        const hitToptWall = snake[0].y < 0;
+        const hitBottomWall = snake[0].y > snakeboard.height - 10;
+        result = hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
+      }
+      
       if(result) {
         // enregistrer score dans tableau
-
+        save_score();
+        create_table_score()
       }
       //return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
       return result;
@@ -287,6 +298,71 @@
       }
     }
     
+
+
+    // save the players score :
+    function save_score() {
+      let allScoresString = localStorage.getItem("bestScores");
+      let allScores = [];
+      let currentScore = {
+        name: playerName,
+        score: score
+      };
+
+      
+      if (allScoresString !== null) {
+        allScores = JSON.parse(allScoresString);
+        allScores.push(currentScore);
+      } else {
+        allScores.push(currentScore);
+      }
+      
+
+      // Convert the scores array into a JSON string
+      var scoresString = JSON.stringify(allScores);
+      // Store the scores in localStorage
+      localStorage.setItem("bestScores", scoresString);
+    }
+
+    function get_scores() {
+      // Retrieve the scores from localStorage
+      var scoresString = localStorage.getItem("bestScores");
+      if (scoresString === null) return;
+
+      // Convert the JSON string back into a JavaScript array
+      var scores = JSON.parse(scoresString);
+
+      // Sort the array in descending order by the "score" field
+      scores.sort(function(a, b) {
+        return b.score - a.score;
+      });
+
+      return scores;
+    }
+
+    function create_table_score() {
+      let scores = get_scores();
+      var table = document.createElement("table");
+      for (var i = 0; i < scores.length; i++) {
+        var row = table.insertRow(i);
+        var item = scores[i];
+
+        //name :
+        var cell = row.insertCell(0);
+        cell.innerHTML = item.name;
+
+        //score
+        cell = row.insertCell(1);
+        cell.innerHTML = item.score;
+
+        
+
+      }
+
+      console.log(table);
+      // Add the table to the document
+      //document.body.appendChild(table);
+    }
 
   </script>
 </html>
