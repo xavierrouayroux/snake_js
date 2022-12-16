@@ -1,0 +1,76 @@
+body{
+width:100%!important;
+background-color:royalblue!important;
+
+}
+
+img.snake{
+    width:19%;
+    display: block;
+    margin:0 auto;
+    padding:2em 0em;
+}
+.container{
+    background-color: royalblue;
+    
+ 
+}
+.intro{
+    background-color: royalblue;
+
+}
+.selection{
+    background-color: blue;
+}
+
+
+.jeux{
+    background-color: royalblue;
+}
+
+#snakeboard {
+        position: absolute;
+        top: 78%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+#score {
+        position: absolute;
+        font-size: 55px;
+      color: red;
+     top: 49%;
+     left: 49%;
+      }
+      img.bg{
+top: 2%;
+position: absolute;
+width: 9%;
+left: 26%;
+      }
+img.game{
+width: 15%;
+position: absolute;
+right: 20%;
+top: 4%;
+}
+#game_speed{
+color: red;
+background-color:blue
+}
+#player_name{
+background-color:blue;
+color: red;
+}
+#table_score{
+color: rgb(255, 0, 0);
+
+}
+#start{
+color: red;
+background-color: black;
+}
+#playerr{
+color: red;
+background-color: black;
+
+}

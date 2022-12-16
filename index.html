@@ -3,89 +3,59 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="main.css" rel="stylesheet">
+  
     <title>Snake JS Game</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
-  </head>
+  
   <body>
 	<div class="container">
 		<h1></h1>
-    <img src="img/téléchargement.jpg" alt="snake"> 
-    <div class="btn-group" role="group" aria-label="Basic outlined example">
-      <button type="button" class="btn btn-outline-primary">player1</button>
-      <button type="button" class="btn btn-outline-primary">player2</button>
-      <button type="button" class="btn btn-outline-primary">player3</button>
-      <button id="start" type="button" class="btn btn-start">Start</button> <input class="btn btn-primary" type="reset" value="Reset">
-  </div> 
-  <select class="form-select" aria-label="Default select example">
-    <option selected>choose speed difficulty</option>
-    <option value="1">10</option>
-    <option value="2">15</option>
-    <option value="3">20</option>
-  </select>
-</html>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">player</th>
-          <th scope="col">name</th>
-          <th scope="col">score</th>
-          <th scope="col">best score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2"></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-<!DOCTYPE html>
-<html>
-  <head>
-    <label for="inputPassword5" class="form-label">pseudo</label>
-<input type="text" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-<div id="passwordHelpBlock" class="form-text">
-</div>
-  	<title>Snake Game</title>
-  </head>
+      <div class="intro">
+        <img class="snake" src="img/téléchargement.jpg" alt="snake">
+      </div>
+      <img class="bg" src="img/images.jpg" alt="snake">
+      <img class="game" src="img/snake-game.jpg" alt="snake">
 
-  <body>
+      <div class="selection">
+        <select id="game_speed" class="form-select" aria-label="Default select example">
+          <option selected>choose speed difficulty</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
 
-    <div id="score">0</div>
-    <canvas id="snakeboard" width="400" height="400"></canvas>
-    <style>
-      #snakeboard {
-        position: absolute;
-        top: 70%;
-        left: 27%;
-        transform: translate(-50%, -50%);
-      }
-      #score {
-        text-align: center;
-        font-size: 70px;
-      }
-    </style>
+
+         <div class="btn-group" role="group" aria-label="Basic outlined example">
+          <button id="playerr" type="button" class="btn btn-outline-dark">player1</button>
+          <button id="start" type="button" class="btn btn-dark">Start</button> 
+        </div> 
+      
+        <input type="text" id="player_name" class="form-control" placeholder="Pseudo" aria-describedby="passwordHelpBlock">
+
+        <table id="table_score" class="table">
+            <tr>
+              <th scope="col">player</th>
+              <th scope="col">score</th>
+            </tr>
+        </table>
+      </div>
+
+      <div class="jeux">
+        <div id="score">0</div>
+        <canvas id="snakeboard" width="400" height="400"></canvas>
+      </div>
+
+  </div>
+    
   </body>
 
   <script>
-    const board_border = 'black';
-    const board_background = "green";
-    const snake_col = 'red';
-    const snake_border = 'yellow';
+    const board_border = 'blue';
+    const board_background = "red";
+    const snake_col = 'blue';
+    const snake_border = 'black';
 
     let resulats = [];
     
@@ -128,6 +98,18 @@
     //start game
     function start()
     {
+       var playerNameInput = document.getElementById("player_name");
+       playerName = playerNameInput.value;
+       console.log(playerName);
+
+       var gameSpeedInput = document.getElementById("game_speed");
+       //dx = parseInt(gameSpeedInput.value);
+       
+       var inputUser = parseInt(gameSpeedInput.value);
+       console.log(inputUser);
+       var framerate = 100 -inputUser ;
+       console.log(framerate);
+       
         if (mainLoopTimeout != 0) {
             // restart new game
             clearInterval(mainLoopTimeout);
@@ -148,7 +130,7 @@
         //main();
         mainLoopTimeout = setInterval(function onTick() {
         play();
-        }, 100)
+        }, framerate)
     }
 
     document.addEventListener("keydown", change_direction);
@@ -198,8 +180,8 @@
     }
 
     function drawFood() {
-      snakeboard_ctx.fillStyle = 'red';
-      snakeboard_ctx.strokestyle = 'darkgreen';
+      snakeboard_ctx.fillStyle = 'blue';
+      snakeboard_ctx.strokestyle = 'green';
       snakeboard_ctx.fillRect(food_x, food_y, 10, 10);
       snakeboard_ctx.strokeRect(food_x, food_y, 10, 10);
     }
@@ -352,26 +334,39 @@
 
     function create_table_score() {
       let scores = get_scores();
-      var table = document.createElement("table");
-      for (var i = 0; i < scores.length; i++) {
-        var row = table.insertRow(i);
-        var item = scores[i];
+      //var table = document.createElement("table");
+      var table = document.getElementById("table_score");
+      console.log(scores);
+      var tbodyRef = table.getElementsByTagName('tbody')[0];
+      tbodyRef.innerHTML="";
+      var max = 0;
+      if (scores != 'undefined' && scores !== null && scores instanceof Array) {
+        for (var i = 0; i < scores.length; i++) {
+          
+          var row = tbodyRef.insertRow(i);
+          var item = scores[i];
 
-        //name :
-        var cell = row.insertCell(0);
-        cell.innerHTML = item.name;
+          //name :
+          var cell = row.insertCell(0);
+          if (item.name == '') {
+            cell.innerHTML = 'player1';
+          } else {
+            cell.innerHTML = item.name;
+          }
+          
 
-        //score
-        cell = row.insertCell(1);
-        cell.innerHTML = item.score;
-
-        
-
+          //score
+          cell = row.insertCell(1);
+          cell.innerHTML = item.score;
+          max = max+1;
+          if( max > 3) break;
+        }
       }
+      
 
-      console.log(table);
+      //console.log(table);
       // Add the table to the document
-      //document.body.appendChild(table);
+      //sdocument.body.appendChild(table);
     }
 
   </script>
